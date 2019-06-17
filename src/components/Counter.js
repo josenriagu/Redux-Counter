@@ -3,37 +3,46 @@ import { connect } from 'react-redux';
 import { increment, decrement } from '../actions';
 
 class Counter extends Component {
+    increment = () => {
+        this.props.increment();
+    };
+
+    decrement = () => {
+        this.props.decrement();
+    };
+
     incrementIfOdd = () => {
-        // Stretch Problem: Implement an increment function that
-        // only increments if the counter value is odd
+        // the count slice of state has been added as prop by the mapStateToProp function, so we can use it right away
+        (this.props.count % 2 !== 0)
+            ?
+            this.props.increment()
+            :
+            null
     };
 
     incrementAsync = () => {
-        // Stretch Problem: Implement an increment function that
-        // increments after waiting for one second
+        // the setTimeout function runs the block of code encapsulated within it after a set period of time has elapsed
+        setTimeout(() => {
+            this.props.increment();
+        }, 1000);
     };
 
     render() {
-        // Fill in the two button onClick methods
-        // Upon clicking these buttons, the count
-        // should decrement or increment accordingly
         return (
             <p>
                 Clicked: {this.props.count} times
-                <button onClick={() => {/* Fill me in */ }}>
+                <button onClick={() => { this.increment() }}>
                     +
                 </button>
-                <button onClick={() => {/* Fill me in */ }}>
+                <button onClick={() => { this.decrement() }}>
                     -
                 </button>
-                 {/* Uncomment these button tags if you got
-                around to implementing the extra credit functions */}
-                {/* <button onClick={this.incrementIfOdd}>
+                <button onClick={this.incrementIfOdd}>
                     Increment if odd
                 </button>
                 <button onClick={this.incrementAsync}>
                     Increment async
-                </button>  */}
+                </button>
             </p>
         );
     }
